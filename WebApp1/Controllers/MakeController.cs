@@ -5,9 +5,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using vroom.AppDbContext;
+using Microsoft.AspNetCore.Authorization;
 
 namespace vroom.Controllers
 {
+    [Authorize(Roles = "Admin,Executive")]
     public class MakeController : Controller
     {
         private readonly VroomDbContext _db;

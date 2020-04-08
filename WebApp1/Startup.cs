@@ -30,8 +30,10 @@ namespace vroom
             services.AddControllersWithViews();
             services.AddDbContext<VroomDbContext>(
                 options => options.UseSqlServer(Configuration.GetConnectionString("Default")));
-            services.AddDefaultIdentity<IdentityUser>().
-                AddEntityFrameworkStores<VroomDbContext>();
+            services.AddIdentity<IdentityUser, IdentityRole>().
+                AddEntityFrameworkStores<VroomDbContext>().
+                AddDefaultUI().
+                AddDefaultTokenProviders();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -47,12 +49,12 @@ namespace vroom
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
-            app.UseHttpsRedirection();
-            app.UseStaticFiles();
-
             app.UseRouting();
 
+            app.UseHttpsRedirection();
+            app.UseStaticFiles();
             app.UseAuthentication();
+
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
@@ -60,6 +62,8 @@ namespace vroom
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
+                endpoints.MapControllers();
+                endpoints.MapRazorPages();
             });
         }
     }
