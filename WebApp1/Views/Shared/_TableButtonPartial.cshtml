@@ -1,0 +1,15 @@
+﻿@model int
+@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+                    <td class="text-right">
+                        <div class="btn-group" role="group">
+                            <form method="get" action="Edit">
+                                <button type="submit" class="btn btn-primary" asp-route-id="@Model" asp-action="Edit"><i class="far fa-edit"></i></button>
+                            </form>
+                            <form method="post" action="Delete">
+                                <button onclick="if (!confirm('Are you sure you wish to delete this item?')) { return false }" type="submit" class="btn btn-danger rounded-0" asp-route-id="@Model" asp-action="Delete"><i class="fas fa-trash-alt"></i></button>
+                            </form>
+                        </div>
+                    </td>
